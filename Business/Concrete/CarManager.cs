@@ -37,6 +37,7 @@ namespace Business.Concrete
 
             else
             {
+                _carDal.Add(car);
                 return new SuccessResult(Messages.Added);
             }
         }
