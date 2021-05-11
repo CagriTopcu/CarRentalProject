@@ -1,10 +1,10 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Entities.Concrete;
 
 namespace Business.Concrete
 {
@@ -25,6 +25,16 @@ namespace Business.Concrete
         {
             _userDal.Delete(user);
             return new SuccessResult();
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
         }
 
         public IDataResult<List<User>> GetAll()
