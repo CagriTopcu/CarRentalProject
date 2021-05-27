@@ -4,6 +4,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Entities.DTOs;
 
@@ -19,8 +20,14 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            _rentalDal.Add(rental);
-            return new SuccessResult();
+            var result = this.GetAll().Data.FirstOrDefault(r =>r.CarId == rental.CarId);
+            if (result == null)
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult();
+            }
+
+            return new ErrorResult();
         }
 
         public IResult Delete(Rental rental)
